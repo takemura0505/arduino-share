@@ -61,32 +61,28 @@ void runRundom() {
   }
 }
 
+inline double freq(int x) {
+  return 440 * pow(2, x / 12.);
+}
+
+float c = 523;
+float d = 587;
+float e = 659;
+float f = 698;
+float g = 784;
+float a = 880;
+float b = 988;
+
 void playMusic() {
-  tone(speakerPin, 	740);
-  delay(200);
-  tone(speakerPin, 	587);
-  delay(200);
-  tone(speakerPin, 	880);
-  delay(200);
-  tone(speakerPin, 	587);
-  delay(200);
-  tone(speakerPin, 	659);
-  delay(200);
-  tone(speakerPin, 	880);
-  delay(200);
-  tone(speakerPin, 	659);
-  delay(200);
-  tone(speakerPin, 	740);
-  delay(200);
-  tone(speakerPin, 	659);
-  delay(200);
-  tone(speakerPin, 	880);
-  delay(200);
-  tone(speakerPin, 	587);
-  delay(200);
-  tone(speakerPin, 	587);
-  delay(200);
+  static const int xs[][2] = {
+    {11, 400}, {7, 400}, {2, 400}, {7, 400}, {9, 400}, {14, 800}, {2, 400}, {9, 400}, {11, 400}, {9, 400}, {2, 400}, {7, 400}
+  };
+  for (int i = 0; i < sizeof(xs); ++i) {
+    tone(speakerPin, 	freq(xs[i][0]));
+    delay(xs[i][1]);
+  }
   noTone(speakerPin);
 }
+
 
 // 167
