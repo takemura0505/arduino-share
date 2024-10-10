@@ -8,6 +8,19 @@
 #define numberof(x) (sizeof(x) / sizeof(x[0]))
 Servo servo;
 
+#define LO (-12) +
+#define HI (+12) +
+
+#define A 0
+#define B 2
+#define C 4
+#define D 6
+#define E 8
+#define F 9
+#define G 11
+#define FL + (-1)
+#define SH + (+1)
+
 int intruderDetectionRate = 100;
 
 float Duration = 0;
@@ -37,7 +50,6 @@ void loop() {
       runRundom();
       isContinues = true;
       digitalWrite(ledPin, HIGH);
-      playMusic();
     }
     // Serial.print(Distance);
     // Serial.println(" cm");
@@ -55,8 +67,11 @@ void runRundom() {
   if (randomNumber == 0) {
     servo.write(0);
     Serial.println("不審者発見！！！");
+    playLuckyMusic();
   } else {
     Serial.println("異常なし");
+    playLuckyMusic();
+    // playDefaultMusic();
   }
 }
 
@@ -64,13 +79,43 @@ inline double freq(int x) {
   return 440 * pow(2, x / 12.);
 }
 
-void playMusic() {
-  static const int xs[][2] = {
-    {11, 400}, {7, 400}, {2, 400}, {7, 400}, {9, 400}, {14, 800}, {2, 400}, {9, 400}, {11, 400}, {9, 400}, {2, 400}, {7, 800}
+void playDefaultMusic() {
+  static const int music[][2] = {
+    {G, 1},
+    {E, 1},
+    {B, 1},
+    {E, 1},
+    {F, 1},
+    {HI B, 2},
+    {B, 1},
+    {F, 1},
+    {G, 1},
+    {F, 1},
+    {B, 1},
+    {E, 1},
   };
-  for (int i = 0, n = numberof(xs); i < n; ++i) {
-    tone(speakerPin, 	freq(xs[i][0]));
-    delay(xs[i][1]);
+  for (int i = 0, n = numberof(music); i < n; ++i) {
+    tone(speakerPin, 	freq(music[i][0]));
+    delay(music[i][1] * 400);
+  }
+  noTone(speakerPin);
+}
+
+void playLuckyMusic() {
+  static const int music[][2] = {
+    {F, 1},
+    {F, 1},
+    {F, 1},
+    {F, 2},
+    {E FL, 2},
+    {G, 1},
+    {F, 1}
+  };
+  for (int i = 0, n = numberof(music); i < n; ++i) {
+    tone(speakerPin, 	freq(music[i][0]));
+    delay(music[i][1] * 100);
+    noTone(speakerPin);
+    delay(100);
   }
   noTone(speakerPin);
 }
