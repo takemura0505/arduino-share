@@ -21,7 +21,7 @@ Servo servo;
 #define FL + (-1)
 #define SH + (+1)
 
-int intruderDetectionRate = 1;
+int intruderDetectionRate = 10;
 
 float Duration = 0;
 float Distance = 0;
