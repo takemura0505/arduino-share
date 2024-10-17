@@ -47,9 +47,9 @@ void loop() {
   Distance = Duration * 340 * 100 / 1000000;
   if (Distance < 160) {
     if (isContinues == false) {
+      digitalWrite(ledPin, HIGH);
       runRundom();
       isContinues = true;
-      digitalWrite(ledPin, HIGH);
     }
     // Serial.print(Distance);
     // Serial.println(" cm");
