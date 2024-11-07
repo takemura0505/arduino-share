@@ -21,7 +21,7 @@ Servo servo;
 #define FL + (-1)
 #define SH + (+1)
 
-int intruderDetectionRate = 10;
+int intruderDetectionRate = 1;
 
 float Duration = 0;
 float Distance = 0;
@@ -34,6 +34,7 @@ void setup() {
   pinMode(ledPin, OUTPUT);
   pinMode(pwmPin, OUTPUT);
   servo.attach(10, 500, 2400);
+  servo.write(0);
 }
 
 void loop() {
@@ -55,7 +56,6 @@ void loop() {
     Serial.println(" cm");
   } else {
     digitalWrite(ledPin, LOW);
-    servo.write(90);
     isContinues = false;
   }
   delay(500);
@@ -65,9 +65,9 @@ void runRundom() {
   int randomNumber;
   randomNumber = random(0, intruderDetectionRate + 1);
   if (randomNumber == 0) {
-    servo.write(0);
-    Serial.println("不審者発見！！！");
+    servo.write(90);
     playLuckyMusic();
+    Serial.println("不審者発見！！！");
   } else {
     Serial.println("異常なし");
     playDefaultMusic();
@@ -120,4 +120,5 @@ void playLuckyMusic() {
     delay(80);
   }
   noTone(speakerPin);
+    servo.write(0);
 }
